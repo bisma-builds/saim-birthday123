@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#38000b">
+<title>A Little Birthday Universe for Saim ❤️</title>
+<style>
+:root{--red:#650015;--deep:#38000b;--card:#80001b;--white:#fff;--soft:#fff5f7;--gold:#ffe1a6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{font-family:Georgia,"Times New Roman",serif;background:var(--red);color:var(--white);line-height:1.75;overflow-x:hidden}
+body.night{--red:#260008;--deep:#140004;--card:#45000f}
+button{font:inherit;cursor:pointer;border:1px solid white;border-radius:30px;padding:12px 22px;margin:7px;background:white;color:var(--red);font-weight:bold;transition:transform .25s,background .25s,color .25s,box-shadow .25s}
+button:hover{transform:translateY(-3px) scale(1.03);background:var(--deep);color:white;box-shadow:0 7px 22px #17000688}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+h1,h2,h3,p{color:white}
+h1{font-size:clamp(38px,8vw,76px);line-height:1.15}
+h2{font-size:clamp(27px,5vw,42px);line-height:1.2;margin-bottom:15px}
+p{font-size:17px}
+section{padding:75px 18px;text-align:center;position:relative}
+.subtitle{max-width:700px;margin:0 auto 25px}
+.card{max-width:850px;margin:22px auto;padding:27px;background:var(--card);border:1px solid #ffffff99;border-radius:22px;box-shadow:0 14px 35px #16000655}
+.divider{font-size:25px;letter-spacing:9px;margin:18px;color:white}
+#countdownScreen{min-height:100svh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:70px 18px 45px;background:radial-gradient(ellipse at 50% 15%,#990020 0%,#650015 45%,#260008 100%);overflow:hidden}
+#countdownScreen:before,#countdownScreen:after{content:"♡";position:absolute;color:#ffffff18;font-size:clamp(180px,35vw,420px);pointer-events:none}
+#countdownScreen:before{left:-70px;top:8%}#countdownScreen:after{right:-80px;bottom:2%}
+.countdown-content{position:relative;z-index:2;width:min(850px,100%)}
+.kicker{letter-spacing:4px;text-transform:uppercase;font-size:12px}
+.count-title{margin:16px 0}
+.countdown{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:30px auto}
+.time-box{min-width:105px;padding:17px 12px;border:1px solid #ffffffaa;border-radius:17px;background:#38000baa;backdrop-filter:blur(6px);box-shadow:0 8px 25px #18000666}
+.time-box strong{display:block;font-size:clamp(30px,6vw,45px);line-height:1.2}
+.time-box span{font-size:13px;letter-spacing:1px}
+.count-note{opacity:.9}
+.hero{min-height:75vh;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(145deg,#80001b,#38000b);overflow:hidden}
+.hero-heart{font-size:68px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{transform:scale(1.22)}}
+.photo-frame{width:min(230px,70vw);height:270px;border:4px solid white;border-radius:130px 130px 25px 25px;overflow:hidden;margin:22px auto;background:var(--deep);box-shadow:0 0 30px #ffffff44}
+.photo-frame img{width:100%;height:100%;object-fit:cover}
+.photo-fallback{height:100%;display:none;align-items:center;justify-content:center;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:950px;margin:25px auto}
+.memory-card{padding:22px;background:var(--card);border:1px solid #ffffff66;border-radius:18px;transition:transform .3s}
+.memory-card:hover{transform:translateY(-7px) rotate(-1deg)}
+.memory-icon{font-size:38px}
+.letter-card{max-width:850px;text-align:left;position:relative;overflow:hidden}
+.letter-card:before{content:"♥";position:absolute;right:20px;top:5px;font-size:90px;color:#ffffff12}
+.letter-text{white-space:pre-line;font-size:clamp(16px,2.5vw,19px);position:relative;z-index:1}
+.letter-text p{margin:0 0 17px}
+.type-cursor{display:inline-block;animation:blink .7s infinite}
+@keyframes blink{50%{opacity:0}}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;max-width:900px;margin:25px auto}
+.feature{background:var(--card);padding:22px;border-radius:18px;border:1px solid #ffffff66}
+.feature strong{display:block;font-size:21px;margin-bottom:7px}
+.gift{font-size:100px;display:inline-block;cursor:pointer;transition:transform .3s;filter:drop-shadow(0 10px 10px #16000666)}
+.gift:hover{transform:rotate(-9deg) scale(1.1)}
+.hidden-reveal{display:none;animation:pop .6s ease}
+.hidden-reveal.show{display:block}
+@keyframes pop{from{opacity:0;transform:scale(.8) translateY(15px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.wish-output{min-height:65px;font-size:21px;margin:15px auto}
+.quiz-card{max-width:760px}
+.quiz-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px}
+.progress{height:8px;background:#ffffff33;border-radius:20px;overflow:hidden;margin:15px 0 25px}
+.progress>div{height:100%;width:0;background:var(--gold);transition:width .35s}
+#question{font-size:clamp(20px,3.5vw,27px);margin:18px 0}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.options button{border-radius:15px;margin:0;min-height:60px}
+.options button:disabled{opacity:.8;cursor:default;transform:none}
+.feedback{min-height:65px;margin:15px 0;font-size:17px}
+#quizResult{display:none}
+.cake{font-size:100px;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translateY(-9px)}}
+.final{display:none;animation:pop .7s ease}.final.show{display:block}
+footer{padding:35px 15px;background:var(--deep);text-align:center}
+#nightBtn{position:fixed;right:12px;top:12px;z-index:500;padding:9px 15px;margin:0}
+.progress-top{height:4px;background:#ffffff22;position:fixed;top:0;left:0;width:100%;z-index:600}
+#readingProgress{height:100%;width:0;background:var(--gold)}
+.heart{position:fixed;bottom:-50px;z-index:100;pointer-events:none;color:white;text-shadow:0 0 12px #fff;animation:floatUp linear forwards}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0) scale(.7);opacity:0}10%{opacity:1}100%{transform:translateY(-115vh) rotate(35deg) scale(1.4);opacity:0}}
+.bloom{position:fixed;z-index:101;pointer-events:none;left:var(--x);top:var(--y);font-size:var(--size);color:white;text-shadow:0 0 12px white;animation:bloom .9s ease-out forwards}
+@keyframes bloom{0%{opacity:0;transform:translate(-50%,-50%) scale(.1)}35%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.7)}}
+.sparkle{position:fixed;z-index:0;pointer-events:none;color:#fff;opacity:.65;animation:twinkle 2.5s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.15;transform:scale(.55)}}
+.confetti{position:fixed;top:-15px;width:9px;height:14px;z-index:700;pointer-events:none;animation:fall 3.5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(760deg);opacity:.8}}
+.reveal-msg{max-width:680px;margin:20px auto}
+.small-note{font-size:13px;opacity:.8}
+@media(max-width:600px){section{padding:55px 14px}.card{padding:20px}.time-box{min-width:72px;padding:13px 8px}.options{grid-template-columns:1fr}#nightBtn{font-size:12px;padding:8px 11px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="progress-top"><div id="readingProgress"></div></div>
+<button id="nightBtn" onclick="toggleNight()">🌙 Night mode</button>
+
+<!-- FIRST SCREEN: LIVE COUNTDOWN -->
+<section id="countdownScreen">
+  <div class="countdown-content">
+    <p class="kicker">A little surprise from Bisma 🤍</p>
+    <div style="font-size:55px;animation:pulse 1.2s infinite">♡</div>
+    <h1 class="count-title">Saim's Birthday Countdown</h1>
+    <p>Every second brings us closer to your special day.</p>
+    <div class="countdown" id="countdown">
+      <div class="time-box"><strong id="days">00</strong><span>DAYS</span></div>
+      <div class="time-box"><strong id="hours">00</strong><span>HOURS</span></div>
+      <div class="time-box"><strong id="minutes">00</strong><span>MINUTES</span></div>
+      <div class="time-box"><strong id="seconds">00</strong><span>SECONDS</span></div>
+    </div>
+    <p class="count-note" id="countNote">19 November, a day worth celebrating. 🎂</p>
+    <button onclick="scrollToSection('welcome')">Open your birthday surprise 🤍</button>
+  </div>
+</section>
+
+<section class="hero" id="welcome">
+  <div class="hero-heart">🤍</div>
+  <p>A tiny corner of the internet, made just for you</p>
+  <h1>Bisma ♡ Saim</h1>
+  <div class="divider">♡ ♥ ♡ ♥ ♡</div>
+  <p>Warning: This website contains an unreasonable amount of hearts, silly jokes, and birthday love.</p>
+  <div class="photo-frame">
+    <img src="saim.png" alt="Saim" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="photo-fallback">Add your picture as <b>&nbsp;saim.png</b> in the same GitHub folder 🤍</div>
+  </div>
+  <h2>Happy Birthday, Saim! 🎂</h2>
+  <p>Scroll down. Your birthday package has multiple levels. 😂</p>
+  <button onclick="scrollToSection('message')">Start the surprise ↓</button>
+</section>
+
+<section id="message">
+  <h2>A Very Long Message, Just for You 🤍</h2>
+  <p class="subtitle">Warning: the following message may cause smiling, eye-rolling, and excessive heart emojis.</p>
+  <div class="card letter-card">
+    <div class="letter-text" id="typedMessage" aria-live="polite"></div>
+    <div style="text-align:center;margin-top:20px">
+      <button onclick="playMessage()">Read my message again 💌</button>
+      <button onclick="copyMessage()">Copy this message ❤️</button>
+      <p id="copyStatus" class="small-note" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section id="littleThings">
+  <h2>Some Things About You That I Adore</h2>
+  <p class="subtitle">A few reminders, because one birthday wish is clearly not enough.</p>
+  <div class="grid">
+    <div class="memory-card"><div class="memory-icon">🤍</div><h3>Your Heart</h3><p>Your kindness makes ordinary moments feel special.</p></div>
+    <div class="memory-card"><div class="memory-icon">😂</div><h3>Your Funny Side</h3><p>Even your random moments deserve their own comedy award.</p></div>
+    <div class="memory-card"><div class="memory-icon">✨</div><h3>Your Dreams</h3><p>I hope you keep growing, learning, and reaching every goal.</p></div>
+    <div class="memory-card"><div class="memory-icon">💻</div><h3>Your CS Brain</h3><p>May your logic stay strong and your bugs stay far away.</p></div>
+  </div>
+</section>
+
+<section id="giftSection">
+  <h2>Open Your Little Gift 🎁</h2>
+  <p class="subtitle">A very important instruction: tap the gift. This is not a coding question.</p>
+  <div class="card">
+    <div class="gift" role="button" tabindex="0" aria-label="Open gift" onclick="openGift()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGift()}">🎁</div>
+    <p>Tap to unwrap your surprise!</p>
+    <div id="giftReveal" class="hidden-reveal reveal-msg">
+      <h2>Surprise! 🤍</h2>
+      <p>Your gift is a whole new year of chances to laugh, learn, grow, and do amazing things. And yes, unlimited birthday wishes are included. ❤️</p>
+    </div>
+  </div>
+</section>
+
+<section id="funZone">
+  <h2>The Official Saim Happiness Machine 😂</h2>
+  <p class="subtitle">Press the buttons. They are scientifically unscientific.</p>
+  <div class="feature-grid">
+    <div class="feature"><strong>🥁 Compliment Generator</strong><p id="compliment">Press for a certified compliment.</p><button onclick="newCompliment()">Compliment me!</button></div>
+    <div class="feature"><strong>🧑‍💻 Programmer Fortune</strong><p id="fortune">Your future is compiling...</p><button onclick="newFortune()">Predict my coding future</button></div>
+    <div class="feature"><strong>❤️ Heart Explosion</strong><p>Need more hearts? That is possible.</p><button onclick="heartExplosion()">Release the hearts!</button></div>
+    <div class="feature"><strong>🐞 Bug Report</strong><p id="bugReport">No bugs detected. Only birthday excitement.</p><button onclick="reportBug()">Run a relationship scan</button></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>The Bisma & Saim: Love.exe Quiz 💻❤️</h2>
+  <p class="subtitle">10 questions. Relationship knowledge plus CS survival skills. No Stack Overflow, Saim. 😂</p>
+  <div class="card quiz-card">
+    <div class="quiz-top"><span id="quizCounter">Question 1 / 10</span><span id="scoreLive">Score: 0</span></div>
+    <div class="progress"><div id="quizProgress"></div></div>
+    <h3 id="question">Loading quiz...</h3>
+    <div class="options" id="options"></div>
+    <p class="feedback" id="feedback" aria-live="polite"></p>
+    <button id="nextBtn" onclick="nextQuestion()" style="display:none">Next question ➜</button>
+    <div id="quizResult">
+      <h2 id="finalScore"></h2>
+      <p id="scoreMessage"></p>
+      <button onclick="restartQuiz()">Play again 🔁</button>
+      <button onclick="burstConfetti(100)">Celebrate my genius 🎉</button>
+    </div>
+  </div>
+</section>
+
+<section id="wish">
+  <h2>Make a Wish, Birthday Boy 🕯️</h2>
+  <p class="subtitle">Think of something you truly want for this new year.</p>
+  <div class="card">
+    <div class="cake" id="cake">🎂</div>
+    <p id="candleMessage">Your wish is waiting. Tap the candle button!</p>
+    <button onclick="blowCandle()">Blow out the candle 🕯️</button>
+    <button onclick="relightCandle()">Light it again</button>
+  </div>
+</section>
+
+<section id="lastSurprise">
+  <h2>One Last Thing...</h2>
+  <p class="subtitle">Because I could never fit all the birthday love into one screen.</p>
+  <button onclick="showFinal()">Open your final surprise 🤍</button>
+  <div class="card final" id="finalCard">
+    <div style="font-size:55px">🤍♡♥♡🤍</div>
+    <h2>Happiest Birthday, Saim!</h2>
+    <p>May your days be kind, your goals achievable, your code clean, your coffee strong, and your happiness endless. Keep being you. ❤️</p>
+    <p style="margin-top:15px">Made with a thousand little hearts by Bisma.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Made with 🤍, silly jokes, and lots of love by Bisma.</p>
+  <p>Happy Birthday, Saim! ❤️</p>
+  <button onclick="scrollToSection('countdownScreen')">Back to the beginning ↑</button>
+</footer>
+
+<script>
+/* Birthday is 19 November 2026, Pakistan time (UTC+5). */
+const birthdayTime = new Date("2026-11-19T00:00:00+05:00").getTime();
+
+function updateCountdown(){
+  const distance=birthdayTime-Date.now();
+  const countdown=document.getElementById("countdown");
+  if(distance<=0){
+    countdown.innerHTML="<h2>HAPPY BIRTHDAY, SAIM! 🎂❤️</h2>";
+    document.getElementById("countNote").textContent="Your special day is finally here!";
+    return;
+  }
+  document.getElementById("days").textContent=Math.floor(distance/86400000);
+  document.getElementById("hours").textContent=Math.floor(distance/3600000%24);
+  document.getElementById("minutes").textContent=Math.floor(distance/60000%60);
+  document.getElementById("seconds").textContent=Math.floor(distance/1000%60);
+}
+updateCountdown();setInterval(updateCountdown,1000);
+
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
+function toggleNight(){
+  document.body.classList.toggle("night");
+  document.getElementById("nightBtn").textContent=document.body.classList.contains("night")?"☀️ Normal mode":"🌙 Night mode";
+}
+
+/* Long personal message with a gentle typing animation. */
+const longMessage = `Mere Saim, ❤️
+
+HAPPIEST BIRTHDAYYYY! 🎂🤍
+
+I hope today reminds you how special you are and how much happiness one person can bring into the lives of people around them. I wish I could pack all the good wishes in the world into one giant gift box and send it to you. Since that box probably would not fit through the door, I made you this little website instead. 😂🎁
+
+First of all, I wish you a year full of happiness, peace, good health, success, and countless reasons to smile. May every effort you make bring you closer to your dreams. May you find strength on difficult days, confidence when things feel uncertain, and people who appreciate the wonderful person you are. Keep learning, keep growing, and never underestimate what you are capable of. ✨
+
+And now, a very serious Computer Science announcement: after extensive testing, I have concluded that you are one of my favourite humans. Your smile is a feature, your kindness is the best functionality, and your sense of humour is an unexpected bonus. There is just one known bug: you are getting older every year. The developers are aware, but unfortunately there is no patch available. 😂💻
+
+If our connection were a program, I would want it to have clean code, strong logic, unlimited patience, and absolutely no unnecessary errors. If life were a long project, I would wish us good teamwork, honest communication, and lots of happy commits. And if happiness were a variable, I would hope yours keeps increasing. ❤️
+
+Thank you for being you, for the conversations, the laughs, the little moments, and all the things that make you different from everyone else. I hope you never stop smiling at silly jokes, dreaming big, and being curious about the world. May your future be brighter than a screen at 100% brightness at midnight. Please remember to rest your eyes too, programmer sahab. 😭😂
+
+I hope this birthday becomes the beginning of a beautiful chapter. May your plans work out better than expected, may your errors be easy to debug, may your assignments submit before the deadline, and may your internet never disconnect during an important upload. Ameen to all of that! 🤲😂
+
+No website, no message, and no number of hearts can fully express how warmly I wish you the best. So here is a little reminder you can revisit whenever you need one: you matter, your dreams matter, and you deserve kindness and happiness.
+
+Once again, HAPPY BIRTHDAY, SAIM! Keep shining, keep laughing, and keep being wonderfully you.
+
+With lots of love, duas, and approximately one million white hearts,
+Bisma 🤍🤍🤍`;
+
+let typingInterval;
+function playMessage(){
+  clearInterval(typingInterval);
+  const box=document.getElementById("typedMessage");
+  box.textContent="";
+  let i=0;
+  typingInterval=setInterval(()=>{
+    box.textContent+=longMessage.charAt(i++);
+    if(i>=longMessage.length)clearInterval(typingInterval);
+  },13);
+}
+playMessage();
+
+async function copyMessage(){
+  const status=document.getElementById("copyStatus");
+  try{await navigator.clipboard.writeText(longMessage);status.textContent="Copied! Send these wishes whenever you like. ❤️";}
+  catch(e){status.textContent="Clipboard not available here. You can select and copy the message text.";}
+}
+
+function createHeart(){
+  const h=document.createElement("span");
+  h.className="heart";
+  h.textContent=["♡","♥","🤍","❤","❥"][Math.floor(Math.random()*5)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(18+Math.random()*30)+"px";
+  h.style.animationDuration=(6+Math.random()*6)+"s";
+  h.style.opacity=.45+Math.random()*.55;
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),12500);
+}
+/* Gentle bloom of hearts across the page. */
+setInterval(createHeart,420);
+function heartExplosion(){
+  for(let i=0;i<45;i++)setTimeout(createHeart,i*25);
+  const x=innerWidth/2,y=innerHeight/2;
+  for(let i=0;i<24;i++){
+    const b=document.createElement("span");
+    b.className="bloom";b.textContent=["♡","♥","🤍"][i%3];
+    b.style.setProperty("--x",x+"px");b.style.setProperty("--y",y+"px");
+    b.style.setProperty("--size",(20+Math.random()*28)+"px");
+    b.style.setProperty("--dx",(Math.random()*360-180)+"px");
+    b.style.setProperty("--dy",(Math.random()*360-180)+"px");
+    document.body.appendChild(b);setTimeout(()=>b.remove(),1100);
+  }
+}
+function openGift(){
+  document.getElementById("giftReveal").classList.add("show");
+  document.querySelector(".gift").textContent="🎉";
+  burstConfetti(70);heartExplosion();
+}
+const compliments=["Certified cutie with a premium smile. 😎","Your brain has excellent processing power. 🧠","You are 10/10, even when your code says 0 errors but still does not run. 😂","Kindness level: legendary. 🤍","You are rarer than a bug-free first draft. 💻"];
+const fortunes=["Your next program will run on the first try. Maybe. 😂","A great idea is coming. Save your work first!","Your future contains success, snacks, and fewer semicolons mistakes.","The stars predict: you will Google a syntax error and find the answer in 4 seconds.","Warning: high probability of becoming everyone's favourite birthday boy."];
+function newCompliment(){document.getElementById("compliment").textContent=compliments[Math.floor(Math.random()*compliments.length)];heartExplosion();}
+function newFortune(){document.getElementById("fortune").textContent=fortunes[Math.floor(Math.random()*fortunes.length)];}
+function reportBug(){
+  const reports=["Bug found: too much charm. No fix recommended. 😂","Scan complete: 0% boring, 100% birthday legend.","One issue detected: age increased by one. Expected behaviour.","System status: heart.exe running normally. ❤️","No critical bugs. Only a severe shortage of birthday cake."];
+  document.getElementById("bugReport").textContent=reports[Math.floor(Math.random()*reports.length)];
+}
+
+/* Ten playful relationship and Computer Science quiz questions. */
+const quiz=[
+{q:"1. If Bisma sends Saim a message saying “I need to tell you something”, what is the best first step?",o:["Read it calmly and listen","Restart the router","Delete WhatsApp","Blame Python"],a:0,why:"Correct! Communication first. Panic is not a debugging strategy. 😂"},
+{q:"2. If Bisma and Saim's connection were a programming language, what should it always support?",o:["Syntax errors","Respect, honesty and kindness","Infinite loading","Random crashes"],a:1,why:"Exactly. The best connection is built on respect, honesty and kindness. 🤍"},
+{q:"3. What is the most romantic thing a programmer can say after fixing a bug?",o:["It works on my machine","You are my favourite feature","Have you tried turning it off and on?","404: Feelings not found"],a:1,why:"You are my favourite feature. No further explanation required. ❤️"},
+{q:"4. If Saim forgets an important date, which system update is needed?",o:["Install more RAM","Enable calendar reminders","Delete the database","Switch to airplane mode"],a:1,why:"Calendar reminders enabled. Birthday dates are high-priority events! 🎂"},
+{q:"5. What should happen when a disagreement appears in the relationship program?",o:["Force shutdown","Ignore all errors forever","Talk, listen and solve it together","Uninstall the friendship"],a:2,why:"Correct. Teamwork and communication are the best problem-solving tools. 🤝"},
+{q:"6. Which data structure would best represent a line of birthday guests waiting for cake?",o:["Queue","Stack","Graph","Compiler"],a:0,why:"Queue follows FIFO. First in, first served. Save Saim a slice! 🍰"},
+{q:"7. What is the output of this special code: print('Happy Birthday Saim ❤️')?",o:["SyntaxError","Happy Birthday Saim ❤️","404 Not Found","Computer says no"],a:1,why:"Perfect output. The program passed all birthday tests! 🎉"},
+{q:"8. If Saim's smile were a variable, what value should it have?",o:["None","-1","Always increasing","NaN"],a:2,why:"Always increasing! That is the only acceptable value. 😄"},
+{q:"9. What is the best way to handle a bug in a project made by two people?",o:["Blame the keyboard","Work together and debug it","Close the laptop forever","Pretend it is a feature"],a:1,why:"Team debugging wins. Two brains, one solution! 💻"},
+{q:"10. Final question: what should the birthday website display when the countdown reaches zero?",o:["System failure","Assignment overdue","Happy Birthday Saim! ❤️🎂","Please install updates"],a:2,why:"Correct! The most important output of the whole website. Happiest birthday! ❤️"}
+];
+let qIndex=0,score=0,answered=false;
+function renderQuestion(){
+  answered=false;
+  const item=quiz[qIndex];
+  document.getElementById("quizCounter").textContent=`Question ${qIndex+1} / ${quiz.length}`;
+  document.getElementById("scoreLive").textContent="Score: "+score;
+  document.getElementById("quizProgress").style.width=(qIndex/quiz.length*100)+"%";
+  document.getElementById("question").textContent=item.q;
+  document.getElementById("feedback").textContent="";
+  document.getElementById("nextBtn").style.display="none";
+  document.getElementById("quizResult").style.display="none";
+  const box=document.getElementById("options");box.style.display="grid";box.innerHTML="";
+  item.o.forEach((choice,i)=>{
+    const btn=document.createElement("button");btn.textContent=choice;
+    btn.onclick=()=>answerQuestion(i,btn);box.appendChild(btn);
+  });
+}
+function answerQuestion(choice,button){
+  if(answered)return;answered=true;
+  const item=quiz[qIndex],buttons=[...document.querySelectorAll("#options button")];
+  buttons.forEach(b=>b.disabled=true);
+  if(choice===item.a){score++;button.textContent="✓ "+item.o[choice];}
+  else{button.textContent="✗ "+item.o[choice];buttons[item.a].textContent="✓ "+item.o[item.a];}
+  document.getElementById("scoreLive").textContent="Score: "+score;
+  document.getElementById("feedback").textContent=item.why;
+  document.getElementById("nextBtn").style.display="inline-block";
+  document.getElementById("nextBtn").textContent=qIndex===quiz.length-1?"See my result 🎉":"Next question ➜";
+}
+function nextQuestion(){
+  if(!answered)return;
+  qIndex++;
+  if(qIndex>=quiz.length){
+    document.getElementById("options").style.display="none";
+    document.getElementById("question").textContent="Quiz completed! 🏆";
+    document.getElementById("feedback").textContent="";
+    document.getElementById("nextBtn").style.display="none";
+    document.getElementById("quizProgress").style.width="100%";
+    document.getElementById("quizResult").style.display="block";
+    document.getElementById("finalScore").textContent=`Your score: ${score} / ${quiz.length} ❤️`;
+    document.getElementById("scoreMessage").textContent=score===10?"10/10! Relationship + CS genius. Bisma is impressed. 😂":score>=7?"Very impressive! Your love.exe and brain.exe are both working.":"A few bugs in the answers, but your birthday status is still legendary. Try again! 😂";
+    burstConfetti(80);return;
+  }
+  renderQuestion();
+}
+function restartQuiz(){qIndex=0;score=0;renderQuestion();}
+renderQuestion();
+
+function blowCandle(){document.getElementById("cake").textContent="🎂✨";document.getElementById("candleMessage").textContent="Wish sent to the universe! May your dreams come true, Saim. 🤍";heartExplosion();burstConfetti(50);}
+function relightCandle(){document.getElementById("cake").textContent="🎂";document.getElementById("candleMessage").textContent="One more wish? You have unlimited birthday wishes today!";}
+function showFinal(){document.getElementById("finalCard").classList.add("show");heartExplosion();burstConfetti(100);}
+function burstConfetti(amount){
+  const colors=["#fff","#ffe1a6","#ffb5c5","#ffdce5"];
+  for(let i=0;i<amount;i++){
+    const c=document.createElement("i");c.className="confetti";
+    c.style.left=Math.random()*100+"vw";c.style.background=colors[i%colors.length];
+    c.style.animationDelay=Math.random()*.5+"s";document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4500);
+  }
+}
+window.addEventListener("scroll",()=>{
+  const max=document.documentElement.scrollHeight-innerHeight;
+  document.getElementById("readingProgress").style.width=(max>0?scrollY/max*100:0)+"%";
+},{passive:true});
+/* Tiny background sparkles, separate from the heart blooms. */
+for(let i=0;i<24;i++){
+  const s=document.createElement("span");s.className="sparkle";s.textContent="✦";
+  s.style.left=Math.random()*100+"vw";s.style.top=Math.random()*100+"vh";
+  s.style.fontSize=(9+Math.random()*13)+"px";s.style.animationDelay=Math.random()*3+"s";
+  document.body.appendChild(s);
+}
+</script>
+</body>
+</html>
